@@ -2,6 +2,20 @@
 
 - [Remix Docs](https://remix.run/docs)
 
+## Setup
+
+Install the dependences you Jones:
+
+```sh
+npm i
+```
+
+Create the DB you tomfool:
+
+```sh
+npm run createDB
+```
+
 ## Development
 
 From your terminal:
