@@ -1,8 +1,4 @@
-import fs from "fs/promises";
-import sqlite3 from "sqlite3";
-
-const sqlite3Verbose = sqlite3.verbose();
-const db = new sqlite3Verbose.Database("teams.db");
+import { PrismaClient } from "@prisma/client";
 
 export type Team = {
   number: number;
@@ -10,45 +6,18 @@ export type Team = {
   description: string;
 };
 
-export async function writeTeams(teams: Team[]) {
-  await fs.writeFile("teams.json", JSON.stringify(teams));
-}
+const db = new PrismaClient();
 
-export function addTeam(team: Team): Promise<void> {
-  return new Promise((resolve, reject) => {
-    db.serialize(() => {
-      const stmt = db.prepare(
-        "INSERT INTO teams (number, name, description) VALUES (?, ?, ?)"
-      );
-      stmt.run(team.number, team.name, team.description);
-      stmt.finalize((err) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-
-        resolve();
-      });
-    });
+export function addTeam(team: Team): Promise<Team> {
+  return db.team.create({
+    data: {
+      number: team.number,
+      name: team.name,
+      description: team.description,
+    },
   });
 }
 
 export async function readTeams(): Promise<Team[]> {
-  return new Promise((resolve, reject) => {
-    const teams: Team[] = [];
-    db.each(
-      "SELECT number, name, description FROM teams ORDER BY number ASC",
-      (err, row) => {
-        teams.push(row);
-      },
-      (err) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-
-        resolve(teams);
-      }
-    );
-  });
+  return db.team.findMany();
 }

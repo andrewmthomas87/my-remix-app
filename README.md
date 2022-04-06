@@ -8,12 +8,11 @@ Install the dependences you Jones:
 
 ```sh
 npm i
-```
-
-Create the DB you tomfool:
-
-```sh
-npm run createDB
+npm install --save-dev prisma
+npm install @prisma/client
+npx prisma init --datasource-provider sqlite
+prisma generate
+npx prisma db push
 ```
 
 ## Development

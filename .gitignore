@@ -1,5 +1,5 @@
 node_modules
-teams.db
+prisma/dev.db
 
 /.cache
 /build
