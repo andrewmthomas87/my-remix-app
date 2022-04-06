@@ -4,6 +4,12 @@
 
 ## Setup
 
+Create a `.env` file at the root with the following contents:
+
+```
+DATABASE_URL="file:./dev.db"
+```
+
 Install the dependences you Jones:
 
 ```sh
