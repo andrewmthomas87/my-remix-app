@@ -1,3 +1,4 @@
+import { Button, Container, Paper, Stack, TextField } from "@mui/material";
 import { ActionFunction, Form, redirect } from "remix";
 import { addTeam } from "~/database";
 
@@ -19,28 +20,32 @@ export const action: ActionFunction = async (args) => {
 
 export default function Create() {
   return (
-    <>
-      <h1>Create team</h1>
-      <Form method="post">
-        <p>
-          <label>
-            Team number: <input type="number" name="number" />
-          </label>
-        </p>
-        <p>
-          <label>
-            Team name: <input type="text" name="name" />
-          </label>
-        </p>
-        <p>
-          <label htmlFor="description">Description:</label>
-          <br />
-          <textarea id="description" rows={20} name="description" />
-        </p>
-        <p>
-          <button type="submit">Create team</button>
-        </p>
-      </Form>
-    </>
+    <Container maxWidth="md">
+      <Paper
+        sx={{
+          px: 4,
+          py: 2,
+        }}
+      >
+        <h1>Create team</h1>
+        <Form method="post">
+          <Stack direction="column" spacing={2}>
+            <Stack direction="row" spacing={2}>
+              <TextField
+                label="Team number"
+                type="number"
+                name="number"
+                fullWidth
+              />
+              <TextField label="Team name" name="name" fullWidth />
+            </Stack>
+            <TextField label="Description" name="description" multiline />
+            <Button type="submit" variant="contained">
+              Create team
+            </Button>
+          </Stack>
+        </Form>
+      </Paper>
+    </Container>
   );
 }

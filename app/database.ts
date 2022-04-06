@@ -21,3 +21,11 @@ export function addTeam(team: Team): Promise<Team> {
 export async function readTeams(): Promise<Team[]> {
   return db.team.findMany();
 }
+
+export async function getTeam(number: number): Promise<Team | null> {
+  return db.team.findUnique({
+    where: {
+      number: number,
+    },
+  });
+}
