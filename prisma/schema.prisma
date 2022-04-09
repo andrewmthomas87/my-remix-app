@@ -43,9 +43,14 @@ model Match {
 }
 
 model Stats {
-  id       String @id @default(uuid())
-  team     Team   @relation(fields: [teamKey], references: [key])
-  match    Match  @relation(fields: [matchKey], references: [key])
-  matchKey String
-  teamKey  String
+  id              String @id @default(uuid())
+  highAutoCargo   Int
+  lowAutoCargo    Int
+  highTeleopCargo Int
+  lowTeleopCargo  Int
+  climbHeight     Int
+  team            Team   @relation(fields: [teamKey], references: [key])
+  match           Match  @relation(fields: [matchKey], references: [key])
+  matchKey        String
+  teamKey         String
 }

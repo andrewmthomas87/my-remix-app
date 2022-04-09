@@ -6,26 +6,29 @@ export type Team = {
   description: string;
 };
 
-const db = new PrismaClient();
+export const db = new PrismaClient();
 
 export function addTeam(team: Team): Promise<Team> {
-  return db.team.create({
-    data: {
-      number: team.number,
-      name: team.name,
-      description: team.description,
-    },
-  });
+  return Promise.resolve({} as any);
+  // return db.team.create({
+  //   data: {
+  //     number: team.number,
+  //     name: team.name,
+  //     description: team.description,
+  //   },
+  // });
 }
 
 export async function readTeams(): Promise<Team[]> {
-  return db.team.findMany();
+  return Promise.resolve([]);
+  // return db.team.findMany();
 }
 
 export async function getTeam(number: number): Promise<Team | null> {
-  return db.team.findUnique({
-    where: {
-      number: number,
-    },
-  });
+  return Promise.resolve(null);
+  // return db.team.findUnique({
+  //   where: {
+  //     number: number,
+  //   },
+  // });
 }
