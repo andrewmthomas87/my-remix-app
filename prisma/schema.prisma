@@ -10,11 +10,42 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// model Team {
+//   id          String   @id @default(uuid())
+//   createdAt   DateTime @default(now())
+//   updatedAt   DateTime @updatedAt
+//   number      Int      @unique
+//   name        String
+//   description String
+// }
+
+model Event {
+  key  String @id
+  name String
+  week Int
+}
+
 model Team {
-  id          String   @id @default(uuid())
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  number      Int      @unique
+  key         String  @id
+  teamNumber  Int     @unique
   name        String
-  description String
+  redMatches  Match[] @relation("red", references: [key])
+  blueMatches Match[] @relation("blue", references: [key])
+  stats       Stats[]
+}
+
+model Match {
+  key         String  @id
+  matchNumber Int
+  redTeams    Team[]  @relation("red", references: [key])
+  blueTeams   Team[]  @relation("blue", references: [key])
+  stats       Stats[]
+}
+
+model Stats {
+  id       String @id @default(uuid())
+  team     Team   @relation(fields: [teamKey], references: [key])
+  match    Match  @relation(fields: [matchKey], references: [key])
+  matchKey String
+  teamKey  String
 }

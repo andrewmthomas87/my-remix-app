@@ -21,6 +21,15 @@ npx prisma generate
 npx prisma db push
 ```
 
+## Update the database
+
+If you don't need your current data: `rm prisma/dev.db`
+
+```
+npx prisma generate
+npx prisma db push
+```
+
 ## Development
 
 From your terminal:
